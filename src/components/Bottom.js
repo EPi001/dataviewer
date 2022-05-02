@@ -11,24 +11,34 @@ class Bottom extends Component {
             this.state = d;
         };
 
-        var fetchData = (function() {
-                    return fetch("http://localhost:8080/user/data/", {mode:'cors'})
-                    .then((response) => response.json())
-                    .then((value) => fetchData=value)
-                  })();
+        var _that = this;
 
-        this.setState({ data: fetchData})
+        this.getData = (async () => {
+            var fetchData = await (function() {
+                        return fetch("http://localhost:8080/user/data/", {mode:'cors'})
+                        .then((response) => response.json())
+                        .then((value) => fetchData=value)
+                      })();
+
+            _that.setState({ data: fetchData})
+
+            return fetchData;
+        })();
+    }
+
+    handleClickEvent(e) {
+        if (typeof e !== "undefined") {
+            e.preventDefault();
+            e.stopPropagation();
+            this.render();
+        }
     }
 
     render () {
-        var x = this.state.data.then(value => { x = value });
-
-        console.log(x);
-
         return (
-          <div>
+          <div id="list" onClick={this.handleClickEvent.bind(this)}>
               <ul>
-                { x.map((d) => { return <li>{d.name}</li> }) }
+                { this.state.data.map((d, index) => { return <li key="{index}">{d.name}</li> }) }
               </ul>
           </div>
         );
