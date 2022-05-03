@@ -1,5 +1,5 @@
-import React, { Component } from "react"
-class Bottom extends Component {
+import React from 'react'
+class Bottom extends React.Component {
     constructor (props) {
         super(props);
 
@@ -20,7 +20,7 @@ class Bottom extends Component {
                         .then((value) => fetchData=value)
                       })();
 
-            _that.setState({ data: fetchData})
+            _that.setState({ data: fetchData});
 
             return fetchData;
         })();
@@ -30,15 +30,19 @@ class Bottom extends Component {
         if (typeof e !== "undefined") {
             e.preventDefault();
             e.stopPropagation();
-            this.render();
+
+            var fetchData = this.getData;
+            this.setState({ data: fetchData});
+            this.forceUpdate();
         }
     }
 
     render () {
+        var _that = this;
         return (
-          <div id="list" onClick={this.handleClickEvent.bind(this)}>
+          <div id="list" onClick={_that.handleClickEvent.bind(this)}>
               <ul>
-                { this.state.data.map((d, index) => { return <li key="{index}">{d.name}</li> }) }
+                { _that.state.data.map((d, index) => { return <li key={index}>{d.name}</li>; }) }
               </ul>
           </div>
         );
