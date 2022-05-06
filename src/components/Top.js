@@ -1,19 +1,26 @@
 import React from "react"
 import Combobox from "react-widgets/Combobox"
-function Top() {
-    var list;
+class Top extends React.Component {
+    constructor (props) {
+        super(props);
 
-    var handleClickEvent = function() {
-        list = document.getElementById('list');
-        list.click();
+        this.list = null;
+    }
+
+    handleClickEvent = function() {
+        this.list = document.getElementById('list');
+        this.list.click();
     };
 
-    return (
-      <Combobox
-        onClick={handleClickEvent}
-        defaultValue="Yellow"
-        data={["Red", "Yellow", "Blue", "Orange"]}
-      />
-    )
+    render() {
+        var _that = this;
+        return (
+          <Combobox
+            onClick={_that.handleClickEvent.bind(_that)}
+            defaultValue="Yellow"
+            data={["Red", "Yellow", "Blue", "Orange"]}
+          />
+        );
+    }
 }
 export default Top
