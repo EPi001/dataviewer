@@ -1,11 +1,22 @@
 import React from "react"
 import Combobox from "react-widgets/Combobox"
+import countries from "i18n-iso-countries"
+import enLocale from "i18n-iso-countries/langs/en.json"
 class Top extends React.Component {
     constructor (props) {
         super(props);
 
         this.list = null;
-        this.d = ['Red', 'Yellow', 'Blue', 'Orange'];
+
+        countries.registerLocale(enLocale);
+
+        this.countryObject = countries.getNames("en", {select: "official"});
+        this.countryArr = Object.entries(this.countryObject).map(([key, value]) => { return {
+            label: value,
+            value: key
+        }});
+
+        console.log(this.countryArr);
     }
 
     handleClickEvent = function() {
@@ -14,15 +25,16 @@ class Top extends React.Component {
     };
 
     handleChangeEvent = function (e, box) {
-       // box._currentValue = e;
-        console.log(box);
+
     }
 
     render() {
         return (
           <Combobox
-            data={this.d}
-            defaultValue={'Yellow'}
+            data={this.countryArr}
+            dataKey='value'
+            textField='label'
+            defaultValue={'DE'}
             onClick={this.handleClickEvent.bind(this)}
             onChange={this.handleChangeEvent.bind(this)}
             defaultOpen={false}

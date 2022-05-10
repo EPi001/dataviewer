@@ -19,8 +19,6 @@ class Bottom extends React.Component {
 
     handleClickEvent(e) {
         if (typeof e !== "undefined") {
-//            e.preventDefault();
-//            e.stopPropagation();
             this.getData();
         }
     }
