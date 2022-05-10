@@ -5,6 +5,7 @@ class Top extends React.Component {
         super(props);
 
         this.list = null;
+        this.d = ['Red', 'Yellow', 'Blue', 'Orange'];
     }
 
     handleClickEvent = function() {
@@ -12,13 +13,20 @@ class Top extends React.Component {
         this.list.click();
     };
 
+    handleChangeEvent = function (e, box) {
+       // box._currentValue = e;
+        console.log(box);
+    }
+
     render() {
-        var _that = this;
         return (
           <Combobox
-            onClick={_that.handleClickEvent.bind(_that)}
-            defaultValue="Yellow"
-            data={["Red", "Yellow", "Blue", "Orange"]}
+            data={this.d}
+            defaultValue={'Yellow'}
+            onClick={this.handleClickEvent.bind(this)}
+            onChange={this.handleChangeEvent.bind(this)}
+            defaultOpen={false}
+            style={{width:'200px'}}
           />
         );
     }

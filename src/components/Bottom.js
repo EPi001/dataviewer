@@ -27,11 +27,8 @@ class Bottom extends React.Component {
 
     render () {
         if (typeof this.state.data.map !== "function") return;
-        console.log(typeof this.state.data.map);
-        console.log(this.state.data);
-        console.log(this.state.data.map((d, index) => { return <li key={index}>{d.name}</li>; }));
         return (
-            <div id="list" style={{width:'50%', height:'200px', overflow:'auto'}} onClick={this.handleClickEvent.bind(this)}>
+            <div id="list" style={{width:'500px', height:'200px', overflow:'auto', margin:'150px 0 0 0'}} onClick={this.handleClickEvent.bind(this)}>
               <ul>
                 { this.state.data.map((d, index) => { return (<li key={index}>{d.name}</li>); }) }
               </ul>
