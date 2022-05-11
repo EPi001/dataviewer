@@ -18,15 +18,15 @@ class Bottom extends React.Component {
     }
 
     filterData(data) {
-        this.list = document.getElementById('list');
-        var _filter = this.list.filter
+        const container = document.getElementById('root');
+        let _filter = container.filter;
 
-        console.log(_filter);
+//        console.log(_filter);
 
-        var out = data;
+        let out = data;
 
-        if(_filter !== "undefined") {
-            out = data.filter((d) => d.location.includes(_filter)).map((d) => { return d; });
+        if(typeof _filter !== "undefined") {
+            out = data.filter((d) => d.location.includes("country=" + _filter.label)).map((d) => { return d; });
         }
 
         return out;
@@ -41,7 +41,7 @@ class Bottom extends React.Component {
     render () {
         if (typeof this.state.data.map !== "function") return;
         return (
-            <div id="list" style={{width:'1200px', height:'200px', overflow:'auto', margin:'150px 0 0 0'}} onClick={this.handleClickEvent.bind(this)} filter="">
+            <div id="list" style={{width:'1200px', height:'500px', overflow:'auto', margin:'150px 0 0 0'}} onClick={this.handleClickEvent.bind(this)}>
               <ul>
                 { this.state.data.map((d, index) => { return (<li key={index}>{d.name} + {d.location}</li>); }) }
               </ul>

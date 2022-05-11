@@ -6,8 +6,6 @@ class Top extends React.Component {
     constructor (props) {
         super(props);
 
-        this.list = null;
-
         countries.registerLocale(enLocale);
 
         this.countryObject = countries.getNames("en", {select: "official"});
@@ -16,35 +14,44 @@ class Top extends React.Component {
             value: key
         }});
 
-        console.log(this.countryArr);
+//        console.log(this.countryArr);
 
-        this.state = {_filter: "Germany"};
+        this.state = {_filter: { locale: "DE", label: "Germany" }};
+
+        this.init();
+    }
+
+    init = function() {
+        const container = document.getElementById('root');
+        container.filter = this.state._filter;
     }
 
     handleClickEvent = function(e) {
-        this.setState({_filter: e.target.value});
-        this.list = document.getElementById('list');
-        this.list.filter = this.state._filter;
-        this.list.click();
+        const container = document.getElementById('root');
+        container.filter = this.state._filter;
 
-        console.log(this.state._filter);
+//        console.log(this.state._filter);
     };
 
     handleChangeEvent = function(e) {
-        this.setState({_filter: e.label});
-        this.list = document.getElementById('list');
-        this.list.filter = this.state._filter;
+        this.state._filter.locale = e.value;
+        this.state._filter.label = e.label;
+        const container = document.getElementById('root');
+        container.filter = this.state._filter;
 
-        console.log(this.state._filter);
+        const list = document.getElementById('list');
+        list.click();
+
+//        console.log(this.state._filter);
     };
 
     render() {
         return (
           <Combobox
             data={this.countryArr}
-            dataKey='label'
+            dataKey='value'
             textField='label'
-            defaultValue={this.state._filter}
+            defaultValue={this.state._filter.locale}
             onClick={this.handleClickEvent.bind(this)}
             onChange={this.handleChangeEvent.bind(this)}
             defaultOpen={false}
