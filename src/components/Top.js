@@ -17,27 +17,38 @@ class Top extends React.Component {
         }});
 
         console.log(this.countryArr);
+
+        this.state = {_filter: "Germany"};
     }
 
-    handleClickEvent = function() {
+    handleClickEvent = function(e) {
+        this.setState({_filter: e.target.value});
         this.list = document.getElementById('list');
+        this.list.filter = this.state._filter;
         this.list.click();
+
+        console.log(this.state._filter);
     };
 
-    handleChangeEvent = function (e, box) {
+    handleChangeEvent = function(e) {
+        this.setState({_filter: e.label});
+        this.list = document.getElementById('list');
+        this.list.filter = this.state._filter;
 
-    }
+        console.log(this.state._filter);
+    };
 
     render() {
         return (
           <Combobox
             data={this.countryArr}
-            dataKey='value'
+            dataKey='label'
             textField='label'
-            defaultValue={'DE'}
+            defaultValue={this.state._filter}
             onClick={this.handleClickEvent.bind(this)}
             onChange={this.handleChangeEvent.bind(this)}
             defaultOpen={false}
+            autoSelectMatches={true}
             style={{width:'200px'}}
           />
         );
