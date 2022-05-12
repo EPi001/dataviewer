@@ -26,7 +26,9 @@ class Bottom extends React.Component {
         let out = data;
 
         if(typeof _filter !== "undefined") {
-            out = data.filter((d) => d.location.includes("country=" + _filter.label)).map((d) => { return d; });
+            out = data.filter((d) => d.location.includes("country=" + _filter.label)).map((d) => {
+                d.location = d.location.replace("country=" + _filter.label, "country=" + "<b>" + _filter.label + "</b>");
+                return d; });
         }
 
         return out;
@@ -43,7 +45,7 @@ class Bottom extends React.Component {
         return (
             <div id="list" style={{width:'1200px', height:'500px', overflow:'auto', margin:'150px 0 0 0'}} onClick={this.handleClickEvent.bind(this)}>
               <ul>
-                { this.state.data.map((d, index) => { return (<li key={index}>{d.name} + {d.location}</li>); }) }
+                { this.state.data.map((d, index) => { let txt = d.name + d.location; return (<li dangerouslySetInnerHTML={{__html: txt}} key={index}></li>); }) }
               </ul>
             </div>
         );
